@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          white 0%,
+          white 49%,
+          black 49%,
+          black 51%,
+          white 51%,
+          white 100%
+        ) repeat;
+        background-size: 20px 20px;
+      }
+      canvas {
+        background-color: white;
+      }
+    </style>
+    <title>B-Shot</title>
+  </head>
+  <body>
+    リポジトリ:<a href="https://github.com/rastel7/b_shot">b_shot</a><br>
+    操作方法:<br>
+    矢印キー:自機移動<br>
+    Z,X:ショット<br>
+    Esc:やりなおし<br>
+  </body>
+  <script type="module">
+    import init from './b_shot.js'
+    init()
+  </script>
+</html>
