@@ -1,37 +1,80 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <style>
-      body {
-        background: linear-gradient(
-          135deg,
+
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      background: linear-gradient(135deg,
           white 0%,
           white 49%,
           black 49%,
           black 51%,
           white 51%,
-          white 100%
-        ) repeat;
-        background-size: 20px 20px;
-      }
-      canvas {
-        background-color: white;
-      }
-    </style>
-    <title>B-Shot</title>
-  </head>
-  <body>
+          white 100%) repeat;
+      background-size: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    #game-container {
+      order: 1;
+    }
+    .game-info {
+      order: 2;
+      margin-top: 20px;
+      text-align: center;
+    }
+    canvas {
+      background-color: white;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <title>B-Shot</title>
+</head>
+
+<body>
+  <div id="game-container"></div>
+  <div class="game-info">
     リポジトリ:<a href="https://github.com/rastel7/b_shot">b_shot</a><br>
     操作方法:<br>
     矢印キー:自機移動<br>
     Z,X:ショット<br>
     Esc:やりなおし<br>
     [BGM,SE]<a href="https://pansound.com/panicpumpkin/index.html">(C)PANICPUMPKIN</a><br>
+  </div>
+</body>
+<script type="module">
+  import init from './b_shot.js'
+  
+  // キャンバス要素の生成を監視
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length) {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeName === 'CANVAS') {
+            const gameContainer = document.getElementById('game-container');
+            if (gameContainer && !gameContainer.contains(node)) {
+              gameContainer.appendChild(node);
+            }
+          }
+        });
+      }
+    });
+  });
 
+  // body要素の変更を監視開始
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
 
-  </body>
-  <script type="module">
-    import init from './b_shot.js'
-    init()
-  </script>
+  // WASMモジュールの初期化
+  init();
+</script>
+
 </html>
